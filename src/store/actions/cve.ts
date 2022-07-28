@@ -18,21 +18,19 @@ export const setCurCve = (value: ConversationItem | null): CveActionTypes => {
 };
 
 export const setCveInitLoading = (value: boolean): CveActionTypes => {
-    return {
-      type: SET_CVE_INIT_LOADING,
-      payload: value,
-    };
+  return {
+    type: SET_CVE_INIT_LOADING,
+    payload: value,
   };
-
+};
 
 export const getCveList = () => {
-    return (dispatch:Dispatch) => {
-        dispatch(setCveInitLoading(true))
-        im.getAllConversationList()
-        .then(res=>{
-          // console.log(JSON.parse(res.data));
-            dispatch(setCveList(JSON.parse(res.data)))
-            dispatch(setCveInitLoading(false))
-        })
-    }
-}
+  return (dispatch: Dispatch) => {
+    dispatch(setCveInitLoading(true));
+    im.getAllConversationList().then((res) => {
+      // console.log(JSON.parse(res.data));
+      dispatch(setCveList(JSON.parse(res.data)));
+      dispatch(setCveInitLoading(false));
+    });
+  };
+};

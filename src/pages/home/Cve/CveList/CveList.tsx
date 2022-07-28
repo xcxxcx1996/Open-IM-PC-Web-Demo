@@ -17,9 +17,10 @@ type CveListProps = {
 };
 
 const CveList: FC<CveListProps> = ({ cveList, clickItem, loading, marginTop, curCve }) => {
+  console.log("cveList=> ",{cveList,clickItem,loading})
   const curUid = useSelector((state: RootState) => state.user.selfInfo.userID, shallowEqual);
   const { t } = useTranslation();
-  
+
   return (
     <div className="cve_list">
       {cveList.length > 0 ? (

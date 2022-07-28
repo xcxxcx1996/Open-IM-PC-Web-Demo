@@ -60,8 +60,9 @@ const ContactContent: ForwardRefRenderFunction<ContactContentHandler, ContactCon
     if (type === SessionType.GROUPCVE) {
       dispatch(setGroupMemberLoading(true));
     }
-    navigate("/");
+    // navigate("/");
     setTimeout(() => {
+      console.log("event", item, type);
       events.emit(TOASSIGNCVE, type === SessionType.SINGLECVE ? (item as FriendItem).userID : (item as GroupItem).groupID, type);
     }, 0);
   };

@@ -1,5 +1,5 @@
 import { Button, Image, Layout, message, Modal } from "antd";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import CveList from "./CveList/CveList";
@@ -140,6 +140,7 @@ const Home = () => {
   };
 
   const assignHandler = (id: string, type: SessionType) => {
+    console.log("assignHandler TOASSIGNCVE: ", id, type);
     getOneCve(id, type)
       .then((cve) => clickItem(cve))
       .catch((err) => message.error(t("GetCveFailed")));
@@ -147,8 +148,8 @@ const Home = () => {
 
   const sendForwardHandler = (options: string | MergerMsgParams, type: messageTypes, list: SelectType[]) => {
     list.map(async (s) => {
-      const uid = (s as FriendItem).userID??"";
-      const gid = (s as GroupItem).groupID??"";
+      const uid = (s as FriendItem).userID ?? "";
+      const gid = (s as GroupItem).groupID ?? "";
       let data;
       if (type === messageTypes.MERGERMESSAGE) {
         data = await im.createMergerMessage(options as MergerMsgParams);
@@ -254,6 +255,7 @@ const Home = () => {
   };
 
   const clickItem = (cve: ConversationItem) => {
+    console.log("CLICKITEM: ", cve);
     if (cve.conversationID === curCve?.conversationID) return;
 
     if (curCve) {
@@ -305,7 +307,7 @@ const Home = () => {
 
   const getHistoryMsg = (uid?: string, gid?: string, sMsg?: MessageItem) => {
     console.log("getMsg:::");
-    
+
     const config = {
       userID: uid ?? "",
       groupID: gid ?? "",
@@ -438,9 +440,11 @@ const Home = () => {
 
         <Content id="chat_main" className={`total_content`}>
           {curCve ? (
-            <ChatContent loadMore={getHistoryMsg} loading={loading} msgList={rs.historyMsgList} imgClick={imgClick} hasMore={rs.hasMore} curCve={curCve} />
+            <ChatContent loadMore={getHistoryMsg} loading={loading} msgList={rs.historyMsgList} imgClick={imgClick} hasMore={rs.hasMore} curCve={curCve}></ChatContent>
           ) : (
-            <WelcomeContent />
+            <>
+              <WelcomeContent />
+            </>
           )}
           <div style={{ display: "none" }}>
             <Image.PreviewGroup

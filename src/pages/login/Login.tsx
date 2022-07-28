@@ -37,7 +37,7 @@ const Login = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { value: type, setValue: setType, back } = useHistoryTravel<Itype>("login");
   const lastType = useLatest(type);
-
+  console.log(lastType.current);
   const finish = (values?: FormField | string | InfoField) => {
     switch (lastType.current) {
       case "login":
@@ -61,13 +61,14 @@ const Login = () => {
               handleError(res);
             }
             setNum((values as FormField)?.phoneNo);
-              toggle(isModify ? "modifycode" : "vericode");
+            toggle(isModify ? "modifycode" : "vericode");
           })
           .catch((err) => handleError(err));
         break;
       case "modifycode":
       case "vericode":
         const isRegister = lastType.current === "vericode";
+        // toggle(isRegister ? "setPwd" : "modify");
         verifyCode(num, values as string, isRegister ? UsedFor.Register : UsedFor.Modify)
           .then((res: any) => {
             setCode(values as string);
@@ -141,7 +142,7 @@ const Login = () => {
     localStorage.setItem(`lastimuid`, userID);
 
     let url = getIMUrl();
-    let platformID = window.electron ? window.electron.platform : 5
+    let platformID = window.electron ? window.electron.platform : 5;
     if (window.electron) {
       url = await window.electron.getLocalWsAddress();
     }

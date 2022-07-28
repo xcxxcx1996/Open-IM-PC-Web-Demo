@@ -29,10 +29,10 @@ const ConSection: FC<ConSectionProps> = ({ section, items, clickItem }) => (
   </div>
 );
 
-const SectionItemComp: FC<SectionItemProps> = ({ item,clickItem }) => (
+const SectionItemComp: FC<SectionItemProps> = ({ item, clickItem }) => (
   <div onDoubleClick={() => clickItem(item, SessionType.SINGLECVE)} className={styles.cons_section_item}>
     <MyAvatar shape="square" size={36} src={item.faceURL} icon={<UserOutlined />} />
-    <div className={styles.cons_item_desc}>{item.remark===''?item.nickname:item.remark}</div>
+    <div className={styles.cons_item_desc}>{item.remark === "" ? item.nickname : item.remark}</div>
   </div>
 );
 
@@ -67,6 +67,7 @@ const ContactList: FC<ContactListProps> = ({ contactList, clickItem }) => {
   const ListView = () => (
     <>
       {cons?.map((con) => (
+
         <ConSection clickItem={clickItem} key={con.initial} section={con.initial} items={con.data} />
       ))}
       <div className={styles.right_index}>

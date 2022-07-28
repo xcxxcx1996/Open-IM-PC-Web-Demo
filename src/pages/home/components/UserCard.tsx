@@ -98,12 +98,15 @@ const UserCard: FC<UserCardProps> = ({ draggableCardVisible, info, close, type }
   };
 
   const clickBtn = () => {
-    if (isFriend) {
-      events.emit(TOASSIGNCVE, info.userID, SessionType.SINGLECVE);
-      close();
-    } else {
-      setStep("send");
-    }
+    events.emit(TOASSIGNCVE, info.userID, SessionType.SINGLECVE);
+    console.log("aaa");
+    close();
+    // if (isFriend) {
+
+    //   close();
+    // } else {
+    //   setStep("send");
+    // }
   };
 
   const updateSelfInfo = () => {
